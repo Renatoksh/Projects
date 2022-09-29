@@ -138,5 +138,31 @@ const pintarCarrito = () => {
         }
         e.stopPropagation()
     }
+    Swal.fire('Bienvenido, Gracias por su preferencia!!!')
 
-    
+    const button = document.querySelector('#btn-alert')
+    button.addEventListener('click', ()=>{
+        let timerInterval
+        Swal.fire({
+          title: 'Cerrando ventana!',
+          html: 'Guardando venta, te esperamos pronto, se cerrará en <b></b>',
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+            // window.close();
+          }
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('cerrado por el timer')
+          }
+          window.close();
+    })
+})
