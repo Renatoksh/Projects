@@ -26,7 +26,6 @@ const fetchData = async () => {
     try {
         const res = await fetch('api.json')
         const data = await res.json()
-        // console.log(data);
         pintarCards(data);
     } catch (error){
         console.log(error);
@@ -41,7 +40,6 @@ const pintarCards = data => {
         templateCard.querySelector('.btn-dark').dataset.id = producto.id
         const clone = templateCard.cloneNode(true);
         fragment.appendChild(clone)
-        // console.log(producto);
     })
     cards.appendChild(fragment)
 }
@@ -55,7 +53,6 @@ const addCarrito = e => {
 }
 
 const setCarrito = objeto => {
-    // console.log(objeto);
     const producto = {
         id: objeto.querySelector('.btn-dark').dataset.id,
         title: objeto.querySelector('h5').textContent,
@@ -67,12 +64,9 @@ const setCarrito = objeto => {
     }
     carrito[producto.id] = {...producto}
     pintarCarrito()
-
-    // console.log(carrito);
 }
 
 const pintarCarrito = () => {
-    // console.log(carrito);
     items.innerHTML = ''
     Object.values(carrito).forEach(producto => { 
         templateCarrito.querySelector('th').textContent = producto.id
@@ -118,11 +112,7 @@ const pintarCarrito = () => {
         })
     }
     const btnAction = e => {
-        // console.log(e.target);
-        //Aumentar
         if (e.target.classList.contains('btn-info')) {
-            // console.log(carrito[e.target.dataset.id]);
-            // carrito[e.target.dataset.id]
             const producto = carrito[e.target.dataset.id]
             producto.cantidad++
             carrito[e.target.dataset.id] = {...producto}
@@ -157,12 +147,11 @@ const pintarCarrito = () => {
           },
           willClose: () => {
             clearInterval(timerInterval)
-            // window.close();
+            window.close();
           }
         }).then((result) => {
           if (result.dismiss === Swal.DismissReason.timer) {
             console.log('cerrado por el timer')
           }
-          window.close();
     })
 })
